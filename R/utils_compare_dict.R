@@ -53,7 +53,8 @@ D1_redcap_names=
   #    "alcdem", "alcdemif", "alcabuse", "impsub", "impsubif", "dysill", "dysillif", "meds", "medsif", "cogoth", "cogothif", "cogothx", "cogoth2", "cogoth2f", "cogoth2x", "cogoth3", "cogoth3f", "cogoth3x")
 
 colnames_ccc <- paste0(c("cogstat_c2", D1_redcap_names, 
-                                 "clin_notes_supp", "clin_notes_anti", "syndrm_stg", "numeric_stg"), "_rev\\d*")
+                                 #"clin_notes_supp", "clin_notes_anti", "syndrm_stg", "numeric_stg"), "_rev\\d*")
+                         "clin_notes_supp", "clin_notes_anti"), "_rev\\d*")
 colnames_ccc_text_str <- "clin_notes|((oth|ftld).*?x)"
 
 
@@ -71,8 +72,8 @@ get_ccc_cols <- function(.dat){
 
 #Function to get REDCap labels
 get_redcap_labels <- function(.dat, redcap_cols,
-                              subset_string = "_rev1$",
-                              rename_string_in = "(.*?)_rev1$", 
+                              subset_string = "_rev1(_entry)?$",
+                              rename_string_in = "(.*?)_rev1(_entry)?$", 
                               rename_string_out = "\\1"){
   
   #Extract labels

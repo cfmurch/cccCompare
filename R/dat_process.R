@@ -3,7 +3,6 @@
 #' Some functions for data processing
 #' 
 #' @import REDCapR
-#' @import redcapAPI
 #'
 
 
@@ -19,7 +18,7 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
 
     #visit_conn <- redcapAPI::redcapConnection(url="https://redcap.dom.uab.edu/api/", token=visit_token)
     #visit_curr <- redcapAPI::exportRecords(visit_conn, factors = use_redcap_factors)
-    visit_curr <- REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token)$data
+    visit_curr <- REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, raw_or_label = "label", guess_type = use_redcap_factors)$data
     if(!(exists("labels_loaded"))) {labels_curr <- colnames(REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, records=1, raw_or_label_headers = "label")$data)
     } else labels_curr <- labels_loaded
     visit_curr <- visit_curr[,colnames(visit_curr) %in% names(labels_curr)]
@@ -41,12 +40,12 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
     
     #First some expected variables from the subject data to the event data
     #Build the lookup table
-    id_look <- visit_curr[visit_curr[[dict[["event_col"]]]] == dict[["subj_event"]],
+    id_look <- visit_curr[visit_curr[[dict[["event_col"]]]] %in% dict[["subj_event"]],
                           .SD[1,], 
                           by = eval(dict[["redcap_key"]]),
                           .SDcols = dict_copy]
     #Apply the lookup to the other event
-    visit_curr[visit_curr[[dict[["event_col"]]]] == dict[["visit_event"]],
+    visit_curr[visit_curr[[dict[["event_col"]]]] %in% dict[["visit_event"]],
                (paste0(dict_copy, dict[["column_annotate"]])) := id_look[.SD, on = dict[["redcap_key"]], mget(dict_copy)]]
     
     #If there are other variables that need to get copied over from the other event, add them to dict_copy above
@@ -71,7 +70,7 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
     visit_curr[, (subj_data_cols) := lapply(.SD, zoo::na.locf, na.rm = FALSE), by = eval(dict[["redcap_key"]]), .SDcols = subj_data_cols]
 
     #Finally, drop the undesired event rows and remove the annotation
-    visit_curr <- visit_curr[visit_curr[[dict[["event_col"]]]] == dict[["visit_event"]],]
+    visit_curr <- visit_curr[visit_curr[[dict[["event_col"]]]] %in% dict[["visit_event"]],]
     colnames(visit_curr) <- gsub(dict[["column_annotate"]], "", colnames(visit_curr))
 
   } else{
@@ -117,7 +116,7 @@ redcap_process <- function(){
   #.data <- ADRCDash:::redcap_order_rows(.data)
 
   #Build age variable based on DoB
-  .data$birthmo <- as.numeric(as.character(.data$birthmo))
+  .data$birthmo <- as.numeric(as.character(gsub("(\\d+)(\\b ).*", "\\1", .data$birthmo)))
   .data[,Age := make_age(.SD, .today=FALSE),by=id_var]
   
   #Make race
@@ -200,11 +199,11 @@ missing_row_dict = list(c("frmdated1a_rev1", "frmdated1a_rev2"),
 #Updated UDS4 dictionary
 uds4_redcap_dict <- list(adrc_key = "adc_sub_id",
                     redcap_key = "record_id",
-                    subj_event = "dmsc_only_arm_1",
-                    visit_event = "staff_entry_arm_1",
+                    subj_event = c("dmsc_only_arm_1", "DMSC Only"),
+                    visit_event = c("staff_entry_arm_1", "Staff Entry"),
                     event_col = "redcap_event_name",
                     visit_col = "redcap_repeat_instance",
-#                    date_valid = "frmdatea1",
+                    date_valid = "frmdatea1",
 #                    age_col = "c2_age",
 #                    educ_col = "educ",
                     column_annotate = "_entry"
