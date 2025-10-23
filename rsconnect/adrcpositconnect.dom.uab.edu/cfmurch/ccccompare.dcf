@@ -6,7 +6,11 @@ server: adrcpositconnect.dom.uab.edu
 envVars: UDS4_API
 hostUrl: https://adrcpositconnect.dom.uab.edu/__api__
 appId: 23
+<<<<<<< Updated upstream
 bundleId: 146
+=======
+bundleId: 145
+>>>>>>> Stashed changes
 url: https://adrcpositconnect.dom.uab.edu/cccCompare/
 version: 1
 asMultiple: FALSE
