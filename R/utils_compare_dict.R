@@ -52,7 +52,7 @@ D1_redcap_names=
 #    "dep", "depif", "deptreat", "bipoldx", "bipoldif", "schizop", "schizoif", "anxiet", "anxietif", "delir", "delirif", "ptsddx", "ptsddxif", "othpsy", "othpsyif", "othpsyx",
 #    "alcdem", "alcdemif", "alcabuse", "impsub", "impsubif", "dysill", "dysillif", "meds", "medsif", "cogoth", "cogothif", "cogothx", "cogoth2", "cogoth2f", "cogoth2x", "cogoth3", "cogoth3f", "cogoth3x")
 
-colnames_ccc <- paste0(c("cogstat_c2", D1_redcap_names, 
+colnames_ccc <- paste0(c("cogstat_c2", D1_redcap_names, "exclude_partic","exclude_notes",
                          #"clin_notes_supp", "clin_notes_anti", "syndrm_stg", "numeric_stg"), "_rev\\d*")
                          "clin_notes_supp", "clin_notes_anti"), "_rev\\d*")
 colnames_ccc_text_str <- "clin_notes|((oth|ftld).*?x)"
