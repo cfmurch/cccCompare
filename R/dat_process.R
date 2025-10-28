@@ -16,6 +16,7 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
 
     visit_curr <- REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, raw_or_label = "label", guess_type = use_redcap_factors)$data
     if(!(exists("labels_loaded"))) {labels_curr <- colnames(REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, records=1, raw_or_label_headers = "label")$data)
+    names(labels_curr) <- colnames(visit_curr)
     } else labels_curr <- labels_loaded
     visit_curr <- visit_curr[,colnames(visit_curr) %in% names(labels_curr)]
     
