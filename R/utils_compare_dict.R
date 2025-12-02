@@ -37,7 +37,7 @@ D1_redcap_names=
     "bipoldx", "bipoldif", "schizop", "schizoif", "anxiet", "anxietif", "genanx", "panicdisdx", "ocddx", "othanxd", "othanxdx", 
     "ptsddx", "ptsddxif", "ndevdis", "ndevdisif", "delir", "delirif", "othpsy", "othpsyif", "othpsyx", "tbidx", "tbidxif", 
     "epilep", "epilepif", "hyceph", "hycephif", "neop", "neopif", "neopstat", "hiv", "hivif", "postc19", "postc19if", "apneadx", "apneadxif", 
-    "othcogill", "othcillif ", "othcogillx", "alcdem", "alcdemif", "impsub", "impsubif", "meds", "medsif", "cogoth", "cogothif", 
+    "othcogill", "othcillif", "othcogillx", "alcdem", "alcdemif", "impsub", "impsubif", "meds", "medsif", "cogoth", "cogothif", 
     "cogothx", "cogoth2", "cogoth2f", "cogoth2x", "cogoth3", "cogoth3f", "cogoth3x", 
     "alzdis", "alzdisif", "lbdis", "lbdif", "ftld", "psp", "pspif", "cort", "cortif", "ftldmo", "ftldmoif", "ftldnos", "ftldnoif", "ftldsubt", "ftldsubx", 
     "cvd", "cvdif", "msa", "msaif", "cte", "cteif", "ctecert", "downs", "downsif", "hunt", "huntif", "prion", "prionif", "caa", "caaif", "late", "lateif", 
